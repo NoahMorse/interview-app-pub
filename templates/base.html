@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Vulnerable Flask Store{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        nav {
+            margin-bottom: 20px;
+        }
+
+        nav a {
+            margin-right: 15px;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .flash-messages {
+            list-style: none;
+            padding: 0;
+        }
+
+        .flash-messages li {
+            padding: 10px;
+            background-color: #f8d7da;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .product-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input,
+        textarea,
+        button {
+            margin-bottom: 10px;
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <a href="{{ url_for('index') }}">Home</a>
+            {% if session.get('user_id') %}
+            <a href="{{ url_for('orders') }}">My Orders</a>
+            <a href="{{ url_for('update_profile') }}">Profile</a>
+            {% if session.get('is_admin') %}
+            <a href="{{ url_for('admin_panel') }}">Admin Panel</a>
+            {% endif %}
+            <a href="{{ url_for('logout') }}">Logout ({{ session.get('username') }})</a>
+            {% else %}
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('register') }}">Register</a>
+            {% endif %}
+            <form action="{{ url_for('search') }}" method="get" style="display: inline;">
+                <input type="text" name="q" placeholder="Search products..." style="width: 200px;">
+                <button type="submit" style="width: auto;">Search</button>
+            </form>
+        </nav>
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class="flash-messages">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+</body>
+
+</html>

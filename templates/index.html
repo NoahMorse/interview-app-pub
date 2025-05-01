@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Vulnerable Flask Store{% endblock %}
+
+{% block content %}
+<h1>Welcome to our Vulnerable Flask Store</h1>
+<p>Browse our products below:</p>
+
+{% for product in products %}
+<div class="product-card">
+    <h2>{{ product.name }}</h2>
+    <p>{{ product.description }}</p>
+    <p><strong>Price: ${{ product.price }}</strong></p>
+    <p>In stock: {{ product.stock }}</p>
+    <a href="{{ url_for('product_detail', product_id=product.id) }}">View Details</a>
+</div>
+{% endfor %}
+{% endblock %}

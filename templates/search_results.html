@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Search Results - Vulnerable Flask Store{% endblock %}
+
+{% block content %}
+<h1>Search Results</h1>
+
+<p>Results for: {{ query|safe }}</p>
+
+{% if products %}
+{% for product in products %}
+<div class="product-card">
+    <h2>{{ product.name }}</h2>
+    <p>{{ product.description }}</p>
+    <p><strong>Price: ${{ product.price }}</strong></p>
+    <p>In stock: {{ product.stock }}</p>
+    <a href="{{ url_for('product_detail', product_id=product.id) }}">View Details</a>
+</div>
+{% endfor %}
+{% else %}
+<p>No products found matching your search.</p>
+{% endif %}
+{% endblock %}

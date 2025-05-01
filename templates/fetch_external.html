@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Fetch External Resource - Vulnerable Flask Store{% endblock %}
+
+{% block content %}
+<h1>Fetch External Resource</h1>
+
+<form method="get">
+    <div>
+        <label for="url">URL:</label>
+        <input type="text" id="url" name="url" required>
+    </div>
+    <button type="submit">Fetch Content</button>
+</form>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}My Orders - Vulnerable Flask Store{% endblock %}
+
+{% block content %}
+<h1>My Orders</h1>
+
+{% if orders %}
+{% for order in orders %}
+<div class="product-card">
+    <h2>Order #{{ order.id }}</h2>
+    <p>Product: {{ order.name }}</p>
+    <p>Quantity: {{ order.quantity }}</p>
+    <p>Unit Price: ${{ order.price }}</p>
+    <p><strong>Total: ${{ order.total_price }}</strong></p>
+    <a href="{{ url_for('download_receipt', order_id=order.id) }}">Download Receipt</a>
+</div>
+{% endfor %}
+{% else %}
+<p>You haven't placed any orders yet.</p>
+{% endif %}
+{% endblock %}
